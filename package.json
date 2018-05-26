@@ -12,9 +12,11 @@
   "private": true,
   "dependencies": {
     "@angular/animations": "^6.0.3",
+    "@angular/cdk": "^6.1.0",
     "@angular/common": "^6.0.3",
     "@angular/compiler": "^6.0.3",
     "@angular/core": "^6.0.3",
+    "@angular/flex-layout": "6.0.0-beta.15",
     "@angular/forms": "^6.0.3",
     "@angular/http": "^6.0.3",
     "@angular/material": "^6.1.0",
@@ -23,8 +25,7 @@
     "@angular/router": "^6.0.3",
     "core-js": "^2.5.4",
     "rxjs": "^6.0.0",
-    "zone.js": "^0.8.26",
-    "@angular/cdk": "^6.1.0"
+    "zone.js": "^0.8.26"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.6.5",
