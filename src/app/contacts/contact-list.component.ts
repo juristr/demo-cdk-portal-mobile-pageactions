@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 @Component({
   selector: 'app-contact-list',
   template: `
-    <p>
-      contact-list works!
-    </p>
+    <h2>Contacts</h2>
+
+    <mat-card *ngFor="let contact of contacts">
+      {{ contact.name }}
+    </mat-card>
 
     <app-page-actions>
       <button type="button" class="toolbar-btn" mat-icon-button (click)="onSave()">
@@ -13,12 +15,26 @@ import { Component, OnInit } from '@angular/core';
       </button>
     </app-page-actions>
   `,
-  styles: []
+  styles: [
+    `
+    mat-card {
+      margin-bottom: 5px;
+    }
+  `
+  ]
 })
 export class ContactListComponent implements OnInit {
+  contacts = [];
+
   constructor() {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    for (let i = 0; i < 100; i++) {
+      this.contacts.push({
+        name: `Contact ${i}`
+      });
+    }
+  }
 
   onSave() {
     alert('yay');

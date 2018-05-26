@@ -7,7 +7,8 @@ import {
   MatButtonModule,
   MatSidenavModule,
   MatIconModule,
-  MatListModule
+  MatListModule,
+  MatCardModule
 } from '@angular/material';
 
 import { ShellComponent } from './shell/shell.component';
@@ -17,6 +18,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 
 const exportedModules = [
   LayoutModule,
+  MatCardModule,
   MatToolbarModule,
   MatButtonModule,
   MatSidenavModule,
