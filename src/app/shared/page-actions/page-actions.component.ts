@@ -9,12 +9,17 @@ import {
   ViewChild,
   OnDestroy
 } from '@angular/core';
-import { DomPortalHost, TemplatePortal, PortalHost } from '@angular/cdk/portal';
+import {
+  DomPortalHost,
+  TemplatePortal,
+  PortalHost,
+  CdkPortal
+} from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-page-actions',
   template: `
-  <ng-template #pageActions>
+  <ng-template cdk-portal>
     <ng-content></ng-content>
   </ng-template>
   `,
@@ -22,8 +27,7 @@ import { DomPortalHost, TemplatePortal, PortalHost } from '@angular/cdk/portal';
 })
 export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private portalHost: PortalHost;
-  private portal;
-  @ViewChild('pageActions') pageActionsTmplRef;
+  @ViewChild(CdkPortal) portal;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -41,12 +45,6 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
       this.componentFactoryResolver,
       this.appRef,
       this.injector
-    );
-
-    // Locate the component factory for the HeaderComponent
-    this.portal = new TemplatePortal(
-      this.pageActionsTmplRef,
-      this.viewContainerRef
     );
 
     // Attach portal to host

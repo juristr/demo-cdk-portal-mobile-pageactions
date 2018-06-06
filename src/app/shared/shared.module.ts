@@ -14,6 +14,7 @@ import {
 import { ShellComponent } from './shell/shell.component';
 import { PageActionsComponent } from './page-actions/page-actions.component';
 import { RouterModule } from '@angular/router';
+import { PortalModule } from '@angular/cdk/portal';
 
 const exportedModules = [
   LayoutModule,
@@ -24,7 +25,8 @@ const exportedModules = [
   MatIconModule,
   MatListModule,
   FlexLayoutModule,
-  RouterModule
+  RouterModule,
+  PortalModule
 ];
 
 @NgModule({
