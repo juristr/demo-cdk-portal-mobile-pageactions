@@ -14,7 +14,6 @@ import {
 import { ShellComponent } from './shell/shell.component';
 import { PageActionsComponent } from './page-actions/page-actions.component';
 import { RouterModule } from '@angular/router';
-import { ToolbarComponent } from './toolbar/toolbar.component';
 
 const exportedModules = [
   LayoutModule,
@@ -30,7 +29,7 @@ const exportedModules = [
 
 @NgModule({
   imports: [CommonModule, ...exportedModules],
-  declarations: [ShellComponent, PageActionsComponent, ToolbarComponent],
+  declarations: [ShellComponent, PageActionsComponent],
   exports: [ShellComponent, PageActionsComponent, ...exportedModules]
 })
 export class SharedModule {}

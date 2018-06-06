@@ -23,7 +23,7 @@ import { DomPortalHost, TemplatePortal, PortalHost } from '@angular/cdk/portal';
 export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private portalHost: PortalHost;
   private portal;
-  @ViewChild('pageActions') pageHeaderTmplRef;
+  @ViewChild('pageActions') pageActionsTmplRef;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
@@ -45,7 +45,7 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // Locate the component factory for the HeaderComponent
     this.portal = new TemplatePortal(
-      this.pageHeaderTmplRef,
+      this.pageActionsTmplRef,
       this.viewContainerRef
     );
 

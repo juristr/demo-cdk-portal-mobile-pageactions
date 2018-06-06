@@ -11,16 +11,16 @@ import { Component, OnInit } from '@angular/core';
 
     <app-page-actions>
       <button type="button" class="toolbar-btn" mat-icon-button (click)="onSave()">
-        <mat-icon>check</mat-icon>
+        <mat-icon>add</mat-icon>
       </button>
     </app-page-actions>
   `,
   styles: [
     `
-    mat-card {
-      margin-bottom: 5px;
-    }
-  `
+      mat-card {
+        margin-bottom: 5px;
+      }
+    `
   ]
 })
 export class ContactListComponent implements OnInit {
@@ -29,7 +29,7 @@ export class ContactListComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 5; i++) {
       this.contacts.push({
         name: `Contact ${i}`
       });
