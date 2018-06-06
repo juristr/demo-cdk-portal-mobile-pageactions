@@ -32,7 +32,6 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
     private injector: Injector,
-    private viewContainerRef: ViewContainerRef,
     private appRef: ApplicationRef
   ) {}
 
