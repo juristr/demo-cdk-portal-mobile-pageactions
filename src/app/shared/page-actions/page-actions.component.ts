@@ -19,7 +19,7 @@ import {
 @Component({
   selector: 'app-page-actions',
   template: `
-  <ng-template cdk-portal>
+  <ng-template cdk-portal #pageActions>
     <ng-content></ng-content>
   </ng-template>
   `,
@@ -28,9 +28,12 @@ import {
 export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   private portalHost: PortalHost;
   @ViewChild(CdkPortal) portal;
+  @ViewChild('pageActions') portalActionsTmplRef;
+  private disposeFn: () => void;
 
   constructor(
     private componentFactoryResolver: ComponentFactoryResolver,
+    private viewContainerRef: ViewContainerRef,
     private injector: Injector,
     private appRef: ApplicationRef
   ) {}
@@ -38,19 +41,27 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {}
 
   ngAfterViewInit(): void {
-    // Create a portalHost from a DOM element
-    this.portalHost = new DomPortalHost(
-      document.querySelector('#page-actions-container'),
-      this.componentFactoryResolver,
-      this.appRef,
-      this.injector
-    );
+    const outletElement = document.querySelector('#page-actions-container');
 
-    // Attach portal to host
-    this.portalHost.attach(this.portal);
+    const viewContainer = this.viewContainerRef;
+    const viewRef = viewContainer.createEmbeddedView(this.portalActionsTmplRef);
+    viewRef.detectChanges();
+
+    // attach the view to the DOM element that matches our selector
+    viewRef.rootNodes.forEach(rootNode => outletElement.appendChild(rootNode));
+
+    // register a dispose fn we can call later
+    // to remove the content from the DOM again
+    this.disposeFn = () => {
+      const index = viewContainer.indexOf(viewRef);
+      if (index !== -1) {
+        viewContainer.remove(index);
+      }
+    };
   }
 
   ngOnDestroy(): void {
-    this.portalHost.detach();
+    this.disposeFn();
+    this.disposeFn = null;
   }
 }
