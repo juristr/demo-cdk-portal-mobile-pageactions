@@ -1,42 +1,32 @@
+import { PortalHost } from '@angular/cdk/portal';
 import {
-  Component,
-  OnInit,
   AfterViewInit,
+  ApplicationRef,
+  Component,
   ComponentFactoryResolver,
   Injector,
-  ViewContainerRef,
-  ApplicationRef,
+  OnDestroy,
+  OnInit,
   ViewChild,
-  OnDestroy
+  ViewContainerRef,
+  ViewRef
 } from '@angular/core';
-import {
-  DomPortalHost,
-  TemplatePortal,
-  PortalHost,
-  CdkPortal
-} from '@angular/cdk/portal';
 
 @Component({
   selector: 'app-page-actions',
   template: `
-  <ng-template cdk-portal #pageActions>
+  <ng-template #pageActions>
     <ng-content></ng-content>
   </ng-template>
   `,
   styles: []
 })
 export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
-  private portalHost: PortalHost;
-  @ViewChild(CdkPortal) portal;
   @ViewChild('pageActions') portalActionsTmplRef;
   private disposeFn: () => void;
+  private viewRef: ViewRef;
 
-  constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private viewContainerRef: ViewContainerRef,
-    private injector: Injector,
-    private appRef: ApplicationRef
-  ) {}
+  constructor(private viewContainerRef: ViewContainerRef) {}
 
   ngOnInit() {}
 
