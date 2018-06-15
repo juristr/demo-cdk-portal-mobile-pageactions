@@ -31,11 +31,14 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit() {}
 
   ngAfterViewInit(): void {
-    const outletElement = document.querySelector('#page-actions-container');
-
-    const viewContainer = this.viewContainerRef;
-    const viewRef = viewContainer.createEmbeddedView(this.portalActionsTmplRef);
+    // render the view
+    const viewRef = this.viewContainerRef.createEmbeddedView(
+      this.portalActionsTmplRef
+    );
     viewRef.detectChanges();
+
+    // grab the DOM element
+    const outletElement = document.querySelector('#page-actions-container');
 
     // attach the view to the DOM element that matches our selector
     viewRef.rootNodes.forEach(rootNode => outletElement.appendChild(rootNode));
@@ -43,9 +46,9 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
     // register a dispose fn we can call later
     // to remove the content from the DOM again
     this.disposeFn = () => {
-      const index = viewContainer.indexOf(viewRef);
+      const index = this.viewContainerRef.indexOf(viewRef);
       if (index !== -1) {
-        viewContainer.remove(index);
+        this.viewContainerRef.remove(index);
       }
     };
   }
