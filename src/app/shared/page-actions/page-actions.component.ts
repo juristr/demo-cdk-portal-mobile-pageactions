@@ -1,15 +1,11 @@
-import { PortalHost } from '@angular/cdk/portal';
 import {
   AfterViewInit,
-  ApplicationRef,
   Component,
-  ComponentFactoryResolver,
-  Injector,
+  EmbeddedViewRef,
   OnDestroy,
   OnInit,
   ViewChild,
-  ViewContainerRef,
-  ViewRef
+  ViewContainerRef
 } from '@angular/core';
 
 @Component({
@@ -24,7 +20,7 @@ import {
 export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('pageActions') portalActionsTmplRef;
   private disposeFn: () => void;
-  private viewRef: ViewRef;
+  private viewRef: EmbeddedViewRef<{}>;
 
   constructor(private viewContainerRef: ViewContainerRef) {}
 
@@ -32,29 +28,28 @@ export class PageActionsComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     // render the view
-    const viewRef = this.viewContainerRef.createEmbeddedView(
+    this.viewRef = this.viewContainerRef.createEmbeddedView(
       this.portalActionsTmplRef
     );
-    viewRef.detectChanges();
+    this.viewRef.detectChanges();
 
     // grab the DOM element
     const outletElement = document.querySelector('#page-actions-container');
 
     // attach the view to the DOM element that matches our selector
-    viewRef.rootNodes.forEach(rootNode => outletElement.appendChild(rootNode));
+    this.viewRef.rootNodes.forEach(rootNode =>
+      outletElement.appendChild(rootNode)
+    );
 
     // register a dispose fn we can call later
     // to remove the content from the DOM again
-    this.disposeFn = () => {
-      const index = this.viewContainerRef.indexOf(viewRef);
-      if (index !== -1) {
-        this.viewContainerRef.remove(index);
-      }
-    };
+    this.disposeFn = () => {};
   }
 
   ngOnDestroy(): void {
-    this.disposeFn();
-    this.disposeFn = null;
+    const index = this.viewContainerRef.indexOf(this.viewRef);
+    if (index !== -1) {
+      this.viewContainerRef.remove(index);
+    }
   }
 }
